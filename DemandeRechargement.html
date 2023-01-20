@@ -109,11 +109,14 @@
                         }
                     }
                 }
+                else{
+                      root.render(<p> Loading...</p>);
+                }
             }
             xhr.addEventListener("error", function (event) {
                 alert('Oups! Quelque chose s\'est mal passé.');
             });
-            xhr.open("GET", "http://127.0.0.1:8080/DemandeRechargements", true);
+            xhr.open("GET", "https://serveurenchere-production.up.railway.app/DemandeRechargements", true);
             xhr.setRequestHeader("idAdmin", localStorage.getItem('idAdmin'));
             xhr.setRequestHeader("token", localStorage.getItem('token'));
             xhr.send(null);
