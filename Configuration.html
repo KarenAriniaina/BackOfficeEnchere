@@ -4,11 +4,36 @@
 <head>
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link href="assets/css/bootstrap.css" rel="stylesheet">
+    <meta charset="utf-8">
+    <meta content="width=device-width, initial-scale=1.0" name="viewport">
+
     <script src="js/react.development.js"></script>
     <script src="js/react-dom.development.js"></script>
     <script src="js/babel.min.js"></script>
+
+    <!-- Favicons -->
+    <link href="assets/img/favicon.png" rel="icon">
+    <link href="assets/img/apple-touch-icon.png" rel="apple-touch-icon">
+
+    <!-- Google Fonts -->
+    <link href="https://fonts.gstatic.com" rel="preconnect">
+    <link
+        href="https://fonts.googleapis.com/css?family=Open+Sans:300,300i,400,400i,600,600i,700,700i|Nunito:300,300i,400,400i,600,600i,700,700i|Poppins:300,300i,400,400i,500,500i,600,600i,700,700i"
+        rel="stylesheet">
+
+    <!-- Vendor CSS Files -->
+    <link href="assets/vendor/bootstrap/css/bootstrap.min.css" rel="stylesheet">
+    <link href="assets/vendor/bootstrap-icons/bootstrap-icons.css" rel="stylesheet">
+    <link href="assets/vendor/boxicons/css/boxicons.min.css" rel="stylesheet">
+    <link href="assets/vendor/quill/quill.snow.css" rel="stylesheet">
+    <link href="assets/vendor/quill/quill.bubble.css" rel="stylesheet">
+    <link href="assets/vendor/remixicon/remixicon.css" rel="stylesheet">
+    <link href="assets/vendor/simple-datatables/style.css" rel="stylesheet">
+
+    <!-- Template Main CSS File -->
+    <link href="assets/css/style.css" rel="stylesheet">
+
+
     <title>Accueil</title>
 </head>
 <script src="jsDev/accueil.js"></script>
@@ -16,32 +41,40 @@
     function Header(props) {
         let r = props.header;
         return (
-            <tr>
-                {
-                    r.map(elements => <th>{elements}</th>)
-                }
-            </tr>
+            <thead>
+                <tr>
+                    {
+                        r.map(elements => <th scope="col" >{elements}</th>)
+                    }
+                </tr>
+            </thead>
         );
     }
     function Tablebody(props) {
         let body = props.content;
         console.log(body[0]);
         return (
+
             <tr>
                 {body.map(elements => <td>{elements}</td>)}
             </tr>
+
         );
     }
     function Tablee(props) {
         let b = props.content;
         return (
-            <div class="col-md-7">
-                <h1>{props.titre}</h1>
-                <table class="table" border="1">
+            <div class="card-body">
+                <h5 class="card-title" >{props.titre}</h5>
+                <table class="table "  >
                     <Header header={props.header} />
-                    {
-                        b.map(elements => <Tablebody content={elements} />)
-                    }
+                    <tbody>
+                        {
+
+                            b.map(elements => <Tablebody content={elements} />)
+
+                        }
+                    </tbody>
                 </table>
             </div>
         );
@@ -92,14 +125,14 @@
                                 tab1.push(categorie[i].commission);
                                 body.push(tab1);
                             }
-                            let col = ["duree Min enchere en jour", "duree Max enchere en jour", "commission enchere"];
+                            let col = ["Duree Min(en jour)", "Duree Max(en jour)", "Commission enchere(%) "];
                             root.render(
-                                <div>
-                                    <Tablee titre={"Configuration"}
-                                        header={col}
-                                        content={body}
-                                    />
-                                </div>
+
+                                <Tablee titre={"Tableau de configuration"}
+                                    header={col}
+                                    content={body}
+                                />
+
                             );
                         }
                         else {
@@ -111,66 +144,145 @@
                         }
                     }
                 }
+                else {
+                    root.render(<div class="card">
+                        <div class="card-body">
+                            <div class="spinner-border text-primary" role="status">
+                                <span class="visually-hidden">Loading...</span>
+                            </div>
+                        </div>
+                    </div>
+
+                    )
+                }
             }
             xhr.addEventListener("error", function (event) {
                 alert('Oups! Quelque chose s\'est mal passé.');
             });
-            xhr.open("GET", "http://127.0.0.1:8080/Configurations/", true);
+            xhr.open("GET", "https://serveurenchere-production.up.railway.app/Configurations/", true);
             xhr.setRequestHeader("idAdmin", localStorage.getItem('idAdmin'));
             xhr.setRequestHeader("token", localStorage.getItem('token'));
             xhr.send(null);
         }
     });
 </script>
-<script src="jsDev/updateConfig.js" ></script>
-<body>
-    <div class="row">
-        <div class="navbar navbar-light navbar-fixed-top" style="background-color: #306;"">
-            <div class=" collapse navbar-collapse">
-            <div class="col-md-3">
-                <a class="navbar-brand" href="accueil.html"><span style="color:white"><b>Enchere</b></span></a>
-            </div>
-            <div class="col-md-7">
-                <ul class="nav navbar-nav ">
-                    <li><a href="accueil.html"><span style="color:white"><span class="glyphicon glyphicon-home"></span>
-                                Home</span></a></li>
-                    <li><a href="Configuration.html"><span style="color:white">Configuration</span></a></li>
-                    <li><a href="GestionCategorie.html"><span style="color:white">Gestion Categorie</span></a></li>
-                    <li><a href="DemandeRechargement.html"><span style="color:white">Rechargement à Valider</span></a>
-                    </li>
-                    <li><a href="Deconnexion.html"><span style="color:white">Logout</span></a></li>
-                </ul>
-            </div>
-        </div>
-    </div>
-    <div class="row">
-        <div id="root" style="margin-top: 60px;" class="col-md-offset-3">
+<script src="jsDev/updateConfig.js"></script>
 
-        </div>
-    </div>
-    <div class="row">
-        <div class="col-md-offset-4 col-md-5 col-xs-6"
-            style="margin-top:10px;background-color:white;width:350px;height: auto;border-radius:0px;">
-            <h2 class="text-center">Update Config</h2>
-            <form id="myForm">
-                <div class="form-group">
-                    <p><input type="text" class="form-control" placeholder="Nouveau duree min" name="dureemin"
-                            id="login" /></p>
+<body>
+    <aside id="sidebar" class="sidebar">
+
+        <ul class="sidebar-nav" id="sidebar-nav">
+
+            <li class="nav-heading">Link</li>
+
+            <li class="nav-item">
+                <a class="nav-link collapsed" href="accueil.html">
+                    <i class="bi bi-person"></i>
+                    <span>Accueil</span>
+                </a>
+            </li><!-- End Profile Page Nav -->
+
+            <li class="nav-item">
+                <a class="nav-link collapsed" href="GestionCategorie.html">
+                    <i class="bi bi-question-circle"></i>
+                    <span>Gestion Categorie</span>
+                </a>
+            </li><!-- End F.A.Q Page Nav -->
+            <li class="nav-item">
+                <a class="nav-link collapsed" href="Configuration.html">
+                    <i class="bi bi-question-circle"></i>
+                    <span>Configuration</span>
+                </a>
+            </li><!-- End F.A.Q Page Nav -->
+
+
+
+            <li class="nav-item">
+                <a class="nav-link collapsed" href="DemandeRechargement.html">
+                    <i class="bi bi-card-list"></i>
+                    <span>Rechargement à Valider</span>
+                </a>
+            </li><!-- End Register Page Nav -->
+
+            <li class="nav-item">
+                <a class="nav-link collapsed" href="Deconnexion.html">
+                    <i class="bi bi-box-arrow-in-right"></i>
+                    <span>Logout </span>
+                </a>
+            </li><!-- End Login Page Nav -->
+        </ul>
+
+    </aside><!-- End Sidebar-->
+
+
+
+
+    <main id="main" class="main">
+
+
+        <div class="pagetitle">
+            <h1>Configuration</h1>
+            <nav>
+                <ol class="breadcrumb">
+                    <li class="breadcrumb-item"><a href="accueil.html">Accueil</a></li>
+
+                    <li class="breadcrumb-item active">Configuration</li>
+                </ol>
+            </nav>
+        </div><!-- End Page Title -->
+
+        <section class="section">
+            <div class="col-md-6">
+                <div class="card" id="root"> </div>
+
+
+                <div class="card ">
+                    <div class="card-body">
+                        <h5 class="card-title">Update Config</h5>
+
+                        <form id="myForm">
+                            <div class="form-group">
+                                <p><input type="text" class="form-control" placeholder="Nouveau duree min"
+                                        name="dureemin" id="login" /></p>
+                            </div>
+                            <div class="form-group">
+                                <p><input type="text" class="form-control" placeholder="Nouveau duree max"
+                                        name="dureemax" id="login" /></p>
+                            </div>
+                            <div class="form-group">
+                                <p><input type="text" class="form-control" placeholder="Nouveau commission"
+                                        name="commission" id="login" /></p>
+                            </div>
+                            <p style="color:white;text-align: center; "><button class="btn btn-success" type="submit"
+                                    role="button" id="login"><span class="log">Update</span></button></p>
+                        </form>
+                    </div>
                 </div>
-                <div class="form-group">
-                    <p><input type="text" class="form-control" placeholder="Nouveau duree max" name="dureemax"
-                            id="login" /></p>
-                </div>
-                <div class="form-group">
-                    <p><input type="text" class="form-control" placeholder="Nouveau commission" name="commission"
-                            id="login" /></p>
-                </div>
-                <p style="color:white"><button class="btn btn-block" type="submit" role="button" id="login"
-                        style="background-color:#306;"><span class="log">Update</span></button></p>
-            </form>
-        </div>
-    </div>
+            </div>
+            <div class="col-md-6"></div>
+
+
+
+        </section>
+
+
+
+    </main>
+
+
 </body>
 
+<!-- Vendor JS Files -->
+<script src="assets/vendor/apexcharts/apexcharts.min.js"></script>
+<script src="assets/vendor/bootstrap/js/bootstrap.bundle.min.js"></script>
+<script src="assets/vendor/chart.js/chart.umd.js"></script>
+<script src="assets/vendor/echarts/echarts.min.js"></script>
+<script src="assets/vendor/quill/quill.min.js"></script>
+<script src="assets/vendor/simple-datatables/simple-datatables.js"></script>
+<script src="assets/vendor/tinymce/tinymce.min.js"></script>
+<script src="assets/vendor/php-email-form/validate.js"></script>
+
+<!-- Template Main JS File -->
+<script src="assets/js/main.js"></script>
 
 </html>

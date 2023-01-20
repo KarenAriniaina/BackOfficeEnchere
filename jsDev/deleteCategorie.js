@@ -42,7 +42,7 @@ window.addEventListener("load", function () {
                     }
                 }
             }
-            xhr.open("POST", "http://localhost:8080/DeleteCategorie/" + id, true);
+            xhr.open("POST", "https://serveurenchere-production.up.railway.app/DeleteCategorie/" + id, true);
                 xhr.setRequestHeader("idAdmin", localStorage.getItem('idAdmin'));
                 xhr.setRequestHeader("token", localStorage.getItem('token'));
                 xhr.send(null);
