@@ -1,0 +1,155 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link href="assets/css/bootstrap.css" rel="stylesheet">
+    <script src="js/react.development.js"></script>
+    <script src="js/react-dom.development.js"></script>
+    <script src="js/babel.min.js"></script>
+    <title>Gestion Categorie</title>
+</head>
+<script type="text/babel">
+    function Header(props) {
+        let r = props.header;
+        return (
+            <tr>
+                {
+                    r.map(elements => <th>{elements}</th>)
+                }
+            </tr>
+        );
+    }
+    function Tablebody(props) {
+        let body = props.content;
+        console.log(body[0]);
+        return (
+            <tr>
+                {body.map(elements => <td>{elements.designation}</td>)}
+                {body.map(elements => <td><a class="btn" href={"UpdateCategorie.html?id=" + elements.idCategorie}>Update</a></td>)}
+                {body.map(elements => <td><a class="btn" href={"DeleteCategorie.html?id=" + elements.idCategorie}>Delete</a></td>)}
+            </tr>
+        );
+    }
+    function Tablee(props) {
+        let b = props.content;
+        return (
+            <div class="col-md-7">
+                <h1>{props.titre}</h1>
+                <table class="table" border="1">
+                    <Header header={props.header} />
+                    {
+                        b.map(elements => <Tablebody content={elements} />)
+                    }
+                </table>
+            </div>
+        );
+    }
+
+    const head = ["id", "name"];
+    const col = [
+        {
+            id: "col",
+            name: "name"
+        }, {
+            id: "col2",
+            name: "name2"
+        }
+    ]
+
+    var xhr;
+    var categorie = [];
+    var t = "bitch";
+    try { xhr = new ActiveXObject('Msxml2.XMLHTTP'); }
+    catch (e) {
+        try { xhr = new ActiveXObject('Microsoft.XMLHTTP'); }
+        catch (e2) {
+            try { xhr = new XMLHttpRequest(); }
+            catch (e3) { xhr = false; }
+        }
+    }
+    window.addEventListener("load", function (event) {
+        const root = ReactDOM.createRoot(document.getElementById('root'));
+        if (localStorage.getItem("idAdmin") == null || localStorage.getItem("token") == null) {
+            window.location.assign("index.html");
+        }
+        else {
+            xhr.onreadystatechange = function () {
+                if (xhr.readyState == 4) {
+                    if (xhr.status == 200) {
+                        var retour = JSON.parse(xhr.responseText);
+                        console.log(retour);
+                        if (retour.data != null) {
+                            categorie = retour.data;
+                            let body = [];
+                            for (let i = 0; i < categorie.length; i++) {
+                                let tab1 = [];
+                                tab1.push(categorie[i]);
+                                body.push(tab1);
+                            }
+                            console.log(body);
+                            let col = ["designation", "", ""];
+                            root.render(
+                                <div>
+                                    <Tablee titre={"Liste Categorie"}
+                                        header={col}
+                                        content={body}
+                                    />
+                                </div>
+                            );
+                        }
+                        else {
+                            if (retour.message == "Vous n'etes pas connecté") {
+                                localStorage.removeItem("idAdmin");
+                                localStorage.removeItem("token");
+                                window.location.assign("index.html");
+                            }
+                        }
+                    }
+                }
+            }
+            xhr.addEventListener("error", function (event) {
+                alert('Oups! Quelque chose s\'est mal passé.');
+            });
+            xhr.open("GET", "http://127.0.0.1:8080/Categories/", true);
+            xhr.setRequestHeader("idAdmin", localStorage.getItem('idAdmin'));
+            xhr.setRequestHeader("token", localStorage.getItem('token'));
+            xhr.send(null);
+        }
+    });
+</script>
+
+<body>
+    <div class="row">
+        <div class="navbar navbar-light navbar-fixed-top" style="background-color: #306;"">
+            <div class=" collapse navbar-collapse">
+            <div class="col-md-3">
+                <a class="navbar-brand" href="accueil.html"><span style="color:white"><b>Enchere</b></span></a>
+            </div>
+            <div class="col-md-7">
+                <ul class="nav navbar-nav ">
+                    <li><a href="accueil.html"><span style="color:white"><span class="glyphicon glyphicon-home"></span>
+                                Home</span></a></li>
+                    <li><a href="Configuration.html"><span style="color:white">Configuration</span></a></li>
+                    <li><a href="GestionCategorie.html"><span style="color:white">Gestion Categorie</span></a></li>
+                    <li><a href="DemandeRechargement.html"><span style="color:white">Rechargement à Valider</span></a>
+                    </li>
+                    <li><a href="Deconnexion.html"><span style="color:white">Logout</span></a></li>
+                </ul>
+            </div>
+        </div>
+    </div>
+    <div class="row">
+        <div id="root" style="margin-top: 60px;" class="col-md-offset-3">
+
+        </div>
+    </div>
+    <div>
+        <p class="btn" style="margin-left:390px;background-color: #306;" ><a href="InsererCategorie.html"><span style="color: white;"> Inserer nouveau categorie</span> </a></p>
+    </div>
+</body>
+
+
+</html>
