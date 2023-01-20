@@ -1,0 +1,38 @@
+#log{
+    margin-top: 40px;
+    Background-color:#7a7878;
+}
+
+.form-control{
+    border-radius: 10px;
+    margin-bottom: 30px;
+    height:70px;
+    background-color: #d8d3d3;
+}
+
+#button{
+    Background-color:#066;
+    height:70px;
+    border-radius:15px;
+    margin-bottom: 40px;
+}
+
+.button-soratra{
+    font-size: x-large ;
+    font-weight: bold;
+    color: #fff;
+}
+
+#accueil{
+    margin-top:100px;
+    margin-right:300px;
+    margin-left:300px;
+    Background-color:#404040;
+}
+
+#button-accueil{
+    width:400px;
+    height:100px;
+    Background-color:#066;
+    margin-bottom: 40px;
+}

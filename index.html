@@ -5,21 +5,22 @@
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link href="assets/css/bootstrap.css" rel="stylesheet">
     <title>index</title>
 </head>
-<script type="text/javascript">
-    console.log("javascript ok");
-    window.addEventListener("load", function name(params) {
-        document.getElementById("dy").innerHTML+="<p>OK be</p>";
-    });
-</script>
-
+<script src="jsDev/login.js"></script>
 <body>
-    <div id="dy"></div>
-    <p>OK</p>
-    <p><a href="apres.html">Apres</a></p>
-    <div>
-
+<div class="col-md-5 col-xs-6" style="margin-top:100px;background-color:white;width:350px;height: auto;border-radius:0px;">
+    <h2 class="text-center">LOGIN</h2>
+        <form id="myForm">
+            <div class="form-group">
+                <p><input type="text" class="form-control" placeholder="Email" name="login" id="login"/></p>
+            </div>
+            <div class="form-group">
+                <p><input type="password" class="form-control" placeholder="Password" name="mdp" id="mdp"/></p>
+            </div>
+            <p style="color:white"><button class="btn btn-block" type="submit" role="button" id="login" style="background-color:rgb(234,21,218);"><span class="log">Log in</span></button></p>
+        </form>
     </div>
 </body>
 
