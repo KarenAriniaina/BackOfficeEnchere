@@ -42,7 +42,7 @@ window.addEventListener("load", function () {
                     }
                 }
             }
-            xhr.open("GET", "https://serveurenchere-production.up.railway.app/DemandeRechargements/" + id, true);
+            xhr.open("GET", "https://serveurenchere2-production.up.railway.app/DemandeRechargements/" + id, true);
                 xhr.setRequestHeader("idAdmin", localStorage.getItem('idAdmin'));
                 xhr.setRequestHeader("token", localStorage.getItem('token'));
                 xhr.send(null);

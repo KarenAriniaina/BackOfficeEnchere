@@ -34,7 +34,7 @@ window.addEventListener("load", function () {
                 alert('Oups! Quelque chose s\'est mal passé.');
             });
             //console.log(formData.get("dureemin"));
-            xhr.open("POST", "https://serveurenchere-production.up.railway.app/Configuration/",true);
+            xhr.open("POST", "https://serveurenchere2-production.up.railway.app/Configuration/",true);
             xhr.setRequestHeader("idAdmin", localStorage.getItem('idAdmin'));
             xhr.setRequestHeader("token", localStorage.getItem('token'));
             xhr.send(formData);

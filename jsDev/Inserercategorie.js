@@ -34,7 +34,7 @@ window.addEventListener("load", function () {
             xhr.addEventListener("error", function (event) {
                 alert('Oups! Quelque chose s\'est mal passé.');
             });
-            xhr.open("POST", "https://serveurenchere-production.up.railway.app/Categorie/",true);
+            xhr.open("POST", "https://serveurenchere2-production.up.railway.app/Categorie/",true);
             xhr.setRequestHeader("idAdmin", localStorage.getItem('idAdmin'));
             xhr.setRequestHeader("token", localStorage.getItem('token'));
             xhr.send(formData);

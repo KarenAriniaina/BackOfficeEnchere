@@ -28,7 +28,7 @@ window.addEventListener("load", function () {
             xhr.addEventListener("error", function (event) {
                 alert('Oups! Quelque chose s\'est mal passé.');
             });
-            xhr.open("POST", "https://serveurenchere-production.up.railway.app/LoginAdmin/");
+            xhr.open("POST", "https://serveurenchere2-production.up.railway.app/LoginAdmin/");
             xhr.send(formData);
         }
         var form = document.getElementById("myForm");
